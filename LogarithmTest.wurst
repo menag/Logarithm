@@ -43,7 +43,7 @@ public function real.assertEquals(real other, real delta)
 	r = log2(10000.0)
 	r.assertEquals(13.28771237955, delta)
 	
-@tests function lgTest()
+@test function lgTest()
 	real delta = 0.0001
 	real r
 	
