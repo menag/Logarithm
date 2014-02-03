@@ -15,17 +15,8 @@ function generalTest()
 	E.assertEquals(2.718281828452, delta)
 	
 	r = log(-5, 2)
-	r.assertEquals(0.0, delta)
-	
-	r = log2(0.0)
-	r.assertEquals(0.0, delta)
-	
-	r = log(123, 0)
-	r.assertEquals(0.0, delta)
-	
-	r = log(123, 1)
-	r.assertEquals(0.0, delta)
-	
+	r.assertEquals(2.321928094887, delta)
+		
 	r = log(1, 2)
 	r.assertEquals(0.0, delta)
 	
