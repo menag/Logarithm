@@ -2,7 +2,6 @@
  * A package for calculating the logarithm to different bases.
  */
 package Logarithm
-import Wurstunit
 
 /**
  * The eulerian number e.
