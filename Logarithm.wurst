@@ -1,5 +1,5 @@
 /**
- * A package for calculating the logarithm.
+ * A package for calculating the logarithm to different bases.
  */
 package Logarithm
 import Wurstunit
@@ -7,10 +7,12 @@ import Wurstunit
 /**
  * The eulerian number e.
  */
-public constant real E = 2.7182817
+public constant real E = 2.718282
 
-constant real invLog2e = 0.6931472
-constant real invLog210 = 0.3010300
+constant real INV_LOG_2_E = 0.6931472
+constant real INV_LOG_2_10 = 0.3010300
+
+constant real inf = Pow(2.0, 128.0)
 
 /**
  * Calculates the logarithm to base 2 of the absolute value of the argument.
@@ -19,6 +21,8 @@ constant real invLog210 = 0.3010300
  * real a - the argument of the logarithm
  *
  * returns the result of log2|a|
+ *
+ * error - a = 0.0
  */
 public function log2(real a) returns real
 	real x = a
@@ -27,8 +31,8 @@ public function log2(real a) returns real
 	real p = 0.5
 	
 	if x == 0.0
-		error("Cannot calculate the logarithm of 0!")
-		return 0.0
+		error("Cannot calculate the logarithm of 0.0!")
+		return -inf
 	
 	if x < 0.0
 		x = -x
@@ -56,6 +60,8 @@ public function log2(real a) returns real
  * real a - the argument of the logarithm
  *
  * returns the result of lb|a|
+ *
+ * error - a = 0
  */
 public function lb(real a) returns real
 	return log2(a)
@@ -66,6 +72,8 @@ public function lb(real a) returns real
  * real a - the argument of the logarithm
  *
  * returns the result of ld|a|
+ *
+ * error - a = 0
  */
 public function ld(real a) returns real
 	return log2(a)
@@ -76,9 +84,11 @@ public function ld(real a) returns real
  * real a - the argument of the logarithm
  *
  * returns the result of lg|a|
+ *
+ * error - a = 0
  */
 public function lg(real a) returns real
-	return log2(a) * invLog210
+	return log2(a) * INV_LOG_2_10
 
 /**
  * Calculates the logarithm to base e.
@@ -87,19 +97,33 @@ public function lg(real a) returns real
  * real a - the argument of the logarithm
  *
  * returns the result of ln|a|
+ *
+ * error - a = 0
  */
 public function ln(real a) returns real
-	return log2(a) * invLog2e
+	return log2(a) * INV_LOG_2_E
 
 /**
  * Calculates the logarithm to an arbitrary base.
  *
  * real a - the argument of the logarithm
+ * real b - the base of the logarithm
  *
  * returns the result of log_{|b|}(|a|)
+ *
+ * error - b = 0
+ *		 - b = 1
+ *		 - b = -1
+ * 		 - a = 0
  */
 public function log(real a, real b) returns real
 	if (b == 1.0) or (b == -1.0) or (b == 0.0)
-		error("The base b = " + b.toString() + " is no viable base!")
-		return 0.0
+		error(b.toString() + " is not a viable base!")
+		if (b == 0)
+			return 0.0
+		else if (a.abs() > 1)
+			return inf
+		else if (a.abs() < 1)
+			return -inf
+		return 1.0
 	return log2(a) / log2(b)
