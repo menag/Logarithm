@@ -2,18 +2,11 @@ package LogarithmTest
 import NoWurst
 import Logarithm
 import Wurstunit
-import Real
-
-public function real.assertEquals(real other, real delta)
-	if (this - other > delta) or (other - this > delta)
-		testFail("expected " + other.toString() + " but was " + this.toString() + " with delta " + delta.toString())
 
 function generalTest()
 	real delta = 0.00001
 	real r
-	
-	E.assertEquals(2.718281828452, delta)
-	
+		
 	r = log(-5, 2)
 	r.assertEquals(2.321928094887, delta)
 		
@@ -68,4 +61,3 @@ function generalTest()
 	
 	r = log(10000.0, 2.0)
 	r.assertEquals(13.28771237955, delta)
-	
